@@ -32,6 +32,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-ufs2arco-green.svg)](https://anaconda.org/conda-forge/ufs2arco) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/ufs2arco.svg)](https://anaconda.org/conda-forge/ufs2arco) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/ufs2arco.svg)](https://anaconda.org/conda-forge/ufs2arco) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/ufs2arco.svg)](https://anaconda.org/conda-forge/ufs2arco) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-ufs2arco--nompi-green.svg)](https://anaconda.org/conda-forge/ufs2arco-nompi) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/ufs2arco-nompi.svg)](https://anaconda.org/conda-forge/ufs2arco-nompi) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/ufs2arco-nompi.svg)](https://anaconda.org/conda-forge/ufs2arco-nompi) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/ufs2arco-nompi.svg)](https://anaconda.org/conda-forge/ufs2arco-nompi) |
 
 Installing ufs2arco
 ===================
@@ -43,16 +44,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `ufs2arco` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `ufs2arco, ufs2arco-nompi` can be installed with `conda`:
 
 ```
-conda install ufs2arco
+conda install ufs2arco ufs2arco-nompi
 ```
 
 or with `mamba`:
 
 ```
-mamba install ufs2arco
+mamba install ufs2arco ufs2arco-nompi
 ```
 
 It is possible to list all of the versions of `ufs2arco` available on your platform with `conda`:

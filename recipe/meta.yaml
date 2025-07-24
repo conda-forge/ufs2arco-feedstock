@@ -11,7 +11,15 @@ source:
   sha256: 2d7642f043dd25dc6093d209f782fc863f31e4326dacbf9e7780179a0e18b2e7
 
 build:
+  noarch: python
   number: 1
+
+requirements:
+  host:
+    - python {{ python_min }}
+    - setuptools >=64.0.0
+    - setuptools-scm >=8
+    - pip
 
 outputs:
   - name: {{ name }}

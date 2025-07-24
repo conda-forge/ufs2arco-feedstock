@@ -2,6 +2,15 @@
 {% set version = "0.15.1" %}
 {% set python_min = "3.10" %}
 
+package:
+  # This is required for conda-smithy, but outputs override it
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ufs2arco-{{ version }}.tar.gz
+  sha256: 2d7642f043dd25dc6093d209f782fc863f31e4326dacbf9e7780179a0e18b2e7
+
 outputs:
   - name: {{ name }}
     build:

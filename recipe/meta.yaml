@@ -19,7 +19,7 @@ outputs:
       entry_points:
         - ufs2arco = ufs2arco.cli:main
       noarch: python
-      script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+      script: python -m pip install . -vv --no-deps --no-build-isolation
       number: 1
     requirements:
       host:
@@ -62,7 +62,7 @@ outputs:
       entry_points:
         - ufs2arco = ufs2arco.cli:main
       noarch: python
-      script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+      script: python -m pip install . -vv --no-deps --no-build-isolation
       number: 0
     requirements:
       host:

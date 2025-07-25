@@ -44,7 +44,7 @@ requirements:
     - gcsfs
     - esmf * nompi*
     - xesmf
-    - mpi4py  # [nompi == 'mpi']
+    - mpi4py  # [nompi != 'nompi']
 
 test:
   imports:

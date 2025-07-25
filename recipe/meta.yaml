@@ -1,7 +1,6 @@
 {% set name = "ufs2arco" %}
 {% set version = "0.15.1" %}
 
-# By default, package with mpi, unless _nompi is specified
 {% set nompi = nompi or 'mpi' %}
 
 {% set mpi = mpi or 'nompi' %}

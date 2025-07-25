@@ -1,6 +1,6 @@
 {% set name = "ufs2arco" %}
 {% set version = "0.15.1" %}
-{% set build = 1 %}
+{% set build = 2 %}
 
 {% set nompi = nompi or 'mpi' %}
 {% set install_with_mpi4py = nompi == "mpi" %}

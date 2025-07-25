@@ -15,7 +15,9 @@ source:
 build:
   entry_points:
     - ufs2arco = ufs2arco.cli:main
+  noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  string: {{ mpi_prefix }}_pyh{{ PKG_HASH }}_{{ build }}
   number: 1
 
 requirements:

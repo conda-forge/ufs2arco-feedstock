@@ -27,12 +27,12 @@ build:
 
 requirements:
   host:
-    - python
+    - python  {{ python_min }}
     - setuptools >=64.0.0
     - setuptools-scm >=8
     - pip
   run:
-    - python
+    - python  >={{ python_min }}
     - numpy <2.3
     - xarray
     - cf_xarray
@@ -47,9 +47,13 @@ requirements:
     - fsspec
     - s3fs
     - gcsfs
-    - esmf * nompi*
     - xesmf
-    - mpi4py  # [nompi != 'nompi']
+    # conda smithy complains about selectors, so use jinja
+{% if mpi == "nompi" %}
+    - esmf * nompi*
+{% else %}
+    - mpi4py
+{% endif %}
 
 test:
   imports:
@@ -58,7 +62,7 @@ test:
     - pip check
     - ufs2arco --help
   requires:
-    - python
+    - python  {{ python_min }}
     - pip
 
 about:

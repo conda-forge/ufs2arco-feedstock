@@ -1,6 +1,17 @@
 {% set name = "ufs2arco" %}
 {% set version = "0.15.1" %}
-{% set python_min = "3.10" %}
+{% set build = 1 %}
+
+{% set nompi = nompi or 'mpi' %}
+{% set install_with_mpi4py = nompi == "mpi" %}
+
+{% if install_with_mpi4py %}
+{% set mpi_prefix = "mpi" %}
+{% else %}
+{% set mpi_prefix = "nompi" %}
+# prioritize nompi via build number
+{% set build = build + 100 %}
+{% endif %}
 
 package:
   name: {{ name|lower }}
@@ -15,16 +26,17 @@ build:
     - ufs2arco = ufs2arco.cli:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  string: {{ mpi_prefix }}_pyh{{ PKG_HASH }}_{{ build }}
+  number: {{ build }}
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python  {{ python_min }}
     - setuptools >=64.0.0
     - setuptools-scm >=8
     - pip
   run:
-    - python >={{ python_min }}
+    - python  >={{ python_min }}
     - numpy <2.3
     - xarray
     - cf_xarray
@@ -39,6 +51,12 @@ requirements:
     - fsspec
     - s3fs
     - gcsfs
+    - xesmf
+    - esmf * nompi*
+    # conda smithy complains about selectors, so use jinja
+{% if install_with_mpi4py %}
+    - mpi4py
+{% endif %}
 
 test:
   imports:
@@ -47,7 +65,7 @@ test:
     - pip check
     - ufs2arco --help
   requires:
-    - python {{ python_min }}
+    - python  {{ python_min }}
     - pip
 
 about:

@@ -2,6 +2,9 @@
 {% set version = "0.15.1" %}
 {% set python_min = "3.10" %}
 
+# By default, package with mpi, unless _nompi is specified
+{% set nompi = nompi or 'mpi' %}
+
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -11,7 +14,10 @@ source:
   sha256: 2d7642f043dd25dc6093d209f782fc863f31e4326dacbf9e7780179a0e18b2e7
 
 build:
+  entry_points:
+    - ufs2arco = ufs2arco.cli:main
   noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 1
 
 requirements:
@@ -20,92 +26,35 @@ requirements:
     - setuptools >=64.0.0
     - setuptools-scm >=8
     - pip
+  run:
+    - python >={{ python_min }}
+    - numpy <2.3
+    - xarray
+    - cf_xarray
+    - cftime
+    - netcdf4
+    - h5netcdf
+    - zarr <3
+    - cfgrib
+    - bottleneck
+    - flox
+    - dask-core
+    - fsspec
+    - s3fs
+    - gcsfs
+    - esmf * nompi*
+    - xesmf
+    - mpi4py  # [nompi == 'mpi']
 
-outputs:
-  - name: {{ name }}
-    build:
-      entry_points:
-        - ufs2arco = ufs2arco.cli:main
-      noarch: python
-      script: python -m pip install . -vv --no-deps --no-build-isolation
-      number: 1
-    requirements:
-      host:
-        - python {{ python_min }}
-        - setuptools >=64.0.0
-        - setuptools-scm >=8
-        - pip
-      run:
-        - python >={{ python_min }}
-        - numpy <2.3
-        - xarray
-        - cf_xarray
-        - cftime
-        - netcdf4
-        - h5netcdf
-        - zarr <3
-        - cfgrib
-        - bottleneck
-        - flox
-        - dask-core
-        - fsspec
-        - s3fs
-        - gcsfs
-        - esmf * nompi*
-        - xesmf
-        - mpi4py
-    test:
-      imports:
-        - ufs2arco
-      commands:
-        - pip check
-        - ufs2arco --help
-      requires:
-        - python {{ python_min }}
-        - pip
-
-
-  - name: {{ name }}-nompi
-    build:
-      entry_points:
-        - ufs2arco = ufs2arco.cli:main
-      noarch: python
-      script: python -m pip install . -vv --no-deps --no-build-isolation
-      number: 0
-    requirements:
-      host:
-        - python {{ python_min }}
-        - setuptools >=64.0.0
-        - setuptools-scm >=8
-        - pip
-      run:
-        - python >={{ python_min }}
-        # No mpi4py here!
-        - numpy <2.3
-        - xarray
-        - cf_xarray
-        - cftime
-        - netcdf4
-        - h5netcdf
-        - zarr <3
-        - cfgrib
-        - bottleneck
-        - flox
-        - dask-core
-        - fsspec
-        - s3fs
-        - gcsfs
-        - esmf * nompi*
-        - xesmf
-    test:
-      imports:
-        - ufs2arco
-      commands:
-        - pip check
-        - ufs2arco --help
-      requires:
-        - python {{ python_min }}
-        - pip
+test:
+  imports:
+    - ufs2arco
+  commands:
+    - pip check
+    - ufs2arco --help
+  requires:
+    - python {{ python_min }}
+    - pip
 
 about:
   home: https://github.com/NOAA-PSL/ufs2arco

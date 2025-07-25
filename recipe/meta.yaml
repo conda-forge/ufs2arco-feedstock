@@ -2,15 +2,14 @@
 {% set version = "0.15.1" %}
 
 {% set nompi = nompi or 'mpi' %}
+{% set install_with_mpi4py = nompi == "mpi" %}
 
-{% if mpi != "nompi" %}
-{% set mpi_prefix = "mpi_" + mpi %}
+{% if install_with_mpi4py %}
+{% set mpi_prefix = "mpi_" %}
+
 {% else %}
-{% set mpi_prefix = "nompi" %}
-{% endif %}
 
-{% set mpi = mpi or 'nompi' %}
-{% if mpi == "nompi" %}
+{% set mpi_prefix = "nompi_" %}
 # prioritize nompi via build number
 {% set build = build + 100 %}
 {% endif %}
@@ -54,10 +53,9 @@ requirements:
     - s3fs
     - gcsfs
     - xesmf
-    # conda smithy complains about selectors, so use jinja
-{% if mpi == "nompi" %}
     - esmf * nompi*
-{% else %}
+    # conda smithy complains about selectors, so use jinja
+{% if install_with_mpi4py %}
     - mpi4py
 {% endif %}
 

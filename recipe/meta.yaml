@@ -7,10 +7,10 @@
 
 {% if install_with_mpi4py %}
 {% set mpi_prefix = "mpi" %}
+# prioritize mpi via build number
+{% set build = build + 100 %}
 {% else %}
 {% set mpi_prefix = "nompi" %}
-# prioritize nompi via build number
-{% set build = build + 100 %}
 {% endif %}
 
 package:

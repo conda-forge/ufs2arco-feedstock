@@ -6,11 +6,9 @@
 {% set install_with_mpi4py = nompi == "mpi" %}
 
 {% if install_with_mpi4py %}
-{% set mpi_prefix = "mpi_" %}
-
+{% set mpi_prefix = "mpi" %}
 {% else %}
-
-{% set mpi_prefix = "nompi_" %}
+{% set mpi_prefix = "nompi" %}
 # prioritize nompi via build number
 {% set build = build + 100 %}
 {% endif %}

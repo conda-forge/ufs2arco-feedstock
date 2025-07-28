@@ -1,6 +1,6 @@
 {% set name = "ufs2arco" %}
-{% set version = "0.15.1" %}
-{% set build = 2 %}
+{% set version = "0.16.0" %}
+{% set build = 0 %}
 
 {% set nompi = nompi or 'mpi' %}
 {% set install_with_mpi4py = nompi == "mpi" %}
@@ -19,7 +19,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ufs2arco-{{ version }}.tar.gz
-  sha256: 2d7642f043dd25dc6093d209f782fc863f31e4326dacbf9e7780179a0e18b2e7
+  sha256: 3531a45d71cdaa4197e49e4708ceca80c32d9d940150be69587c042cc3e93750
 
 build:
   entry_points:

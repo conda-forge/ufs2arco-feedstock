@@ -1,5 +1,5 @@
 {% set name = "ufs2arco" %}
-{% set version = "0.16.0" %}
+{% set version = "0.17.0" %}
 {% set build = 0 %}
 
 {% set nompi = nompi or 'mpi' %}
@@ -19,7 +19,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ufs2arco-{{ version }}.tar.gz
-  sha256: 3531a45d71cdaa4197e49e4708ceca80c32d9d940150be69587c042cc3e93750
+  sha256: d869ba456507f3bcfb0293f64e7e3e2b9147ae29c2e44b62a3e426df0e9c14ca
 
 build:
   entry_points:

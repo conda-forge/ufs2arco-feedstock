@@ -56,17 +56,13 @@ requirements:
     # conda smithy complains about selectors, so use jinja
 {% if install_with_mpi4py %}
     - mpi4py
+    - mpich
 {% endif %}
 
 test:
   imports:
     - ufs2arco
   commands:
-  {% if install_with_mpi4py %}
-    - export OMPI_MCA_plm=isolated
-    - export OMPI_MCA_btl_vader_single_copy_mechanism=none
-    - export OMPI_MCA_rmaps_base_oversubscribe=yes
-  {% endif %}
     - pip check
     - ufs2arco --help
   requires:

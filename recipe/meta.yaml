@@ -63,7 +63,9 @@ test:
     - ufs2arco
   commands:
   {% if install_with_mpi4py %}
-    - export OMPI_MCA_plm_rsh_agent=/bin/false
+    - export OMPI_MCA_plm=isolated
+    - export OMPI_MCA_btl_vader_single_copy_mechanism=none
+    - export OMPI_MCA_rmaps_base_oversubscribe=yes
   {% endif %}
     - pip check
     - ufs2arco --help

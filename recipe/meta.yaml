@@ -62,6 +62,9 @@ test:
   imports:
     - ufs2arco
   commands:
+  {% if install_with_mpi4py %}
+    - export OMPI_MCA_plm_rsh_agent=/bin/false
+  {% endif %}
     - pip check
     - ufs2arco --help
   requires:

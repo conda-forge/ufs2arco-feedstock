@@ -50,7 +50,7 @@ requirements:
     - dask-core
     - fsspec
     - s3fs
-    - gcsfs
+    - gcsfs >=2025.10.0
     - xesmf
     - esmf * nompi*
     # conda smithy complains about selectors, so use jinja

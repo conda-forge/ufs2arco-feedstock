@@ -1,26 +1,25 @@
-schema_version: 1
-
-context:
-  name: ufs2arco
-  version: "0.17.2"
-  # Default nompi to "mpi" unless specified otherwise
-  nompi: ${{ nompi | default("mpi") }}
-  with_mpi: ${{ nompi == "mpi" }}
-  # Calculate build number offset based on MPI status
-  build_offset: ${{ 100 if with_mpi else 0 }}
-  # Define the prefix string for the build string
-  mpi_prefix: ${{ "mpi" if with_mpi else "nompi" }}
-
-package:
-  name: ${{ name|lower }}
-  version: ${{ version }}
-
-source:
-  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/ufs2arco-${{ version }}.tar.gz
-  sha256: 3c644b2648ae4f59b1a319244901c7ee96ec56fd57e2e975367f6946f661b3c8
-
-build:
-  number: ${{ 0 + build_offset }}
+schema_version: 1                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                             
+context:                                                                                                                                                                                                                                                     
+  name: ufs2arco                                                                                                                                                                                                                                             
+  version: "0.17.2"                                                                                                                                                                                                                                          
+  # Default nompi to "mpi" unless specified otherwise                                                                                                                                                                                                        
+  nompi: ${{ nompi | default("mpi") }}                                                                                                                                                                                                                       
+  with_mpi: ${{ nompi == "mpi" }}                                                                                                                                                                                                                            
+  # Calculate build number offset based on MPI status                                                                                                                                                                                                        
+  build_offset: ${{ 100 if with_mpi else 0 }}                                                                                                                                                                                                                
+  # Define the prefix string for the build string                                                                                                                                                                                                            
+  mpi_prefix: ${{ "mpi" if with_mpi else "nompi" }}                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                             
+package:                                                                                                                                                                                                                                                     
+  name: ${{ name|lower }}                                                                                                                                                                                                                                    
+  version: ${{ version }}                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                             
+source:                                                                                                                                                                                                                                                      
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/ufs2arco-${{ version }}.tar.gz                                                                                                                                                            
+  sha256: 3c644b2648ae4f59b1a319244901c7ee96ec56fd57e2e975367f6946f661b3c8                                                                                                                                                                                   
+                                                                                                                                                                                                                                                             build:
+  number: ${{ 0 + build_offset|int }}
   # Construct the build string to match your V0 logic
   string: ${{ mpi_prefix }}_pyh${{ hash }}_${{ number }}
   noarch: python
@@ -55,26 +54,20 @@ requirements:
     # Quotes are required for asterisks in V1 YAML
     - "esmf * nompi*"
     # Conditional dependency using Jinja block
-    {% if with_mpi %}
-    - mpi4py
-    {% endif %}
+    - ${{ "mpi4py" if with_mpi }}
 
 tests:
   - script:
-      # We set the environment variables here to prevent the Open MPI crash
-      # you experienced earlier, ensuring the help command runs smoothly.
-      - env:
-          OMPI_MCA_plm: isolated
-          OMPI_MCA_btl_vader_single_copy_mechanism: none
-          OMPI_MCA_rmaps_base_oversubscribe: yes
-        run:
-          - pip check
-          - ufs2arco --help
-          # Manual import check (safer than top-level 'imports' for MPI packages in CI)
-          - python -c "import ufs2arco"
+      - export OMPI_MCA_plm=isolated
+      - export OMPI_MCA_btl_vader_single_copy_mechanism=none
+      - export OMPI_MCA_rmaps_base_oversubscribe=yes
+      - pip check
+      - ufs2arco --help
+      - python -c "import ufs2arco"
     requirements:
-      - pip
-      - python ${{ python_min }}
+      run:
+        - pip
+        - python ${{ python_min }}
 
 about:
   homepage: https://github.com/NOAA-PSL/ufs2arco

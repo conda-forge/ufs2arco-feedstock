@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: ufs2arco
-  version: "0.17.2"
+  version: "0.17.3"
   # Default nompi to "mpi" unless specified otherwise
   nompi: ${{ nompi | default("mpi") }}
   with_mpi: ${{ nompi == "mpi" }}
@@ -17,10 +17,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/ufs2arco-${{ version }}.tar.gz
-  sha256: 3c644b2648ae4f59b1a319244901c7ee96ec56fd57e2e975367f6946f661b3c8
+  sha256: df93993e2719a782ec5dfeed61c415b6db780f7ea21505d07532d3eadbc67145
 
 build:
-  number: ${{ 0 + build_offset|int }}
+  number: 0
   # Construct the build string to match your V0 logic
   string: ${{ mpi_prefix }}_pyh${{ hash }}_${{ number }}
   noarch: python

@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: ufs2arco
-  version: "0.17.3"
+  version: "0.18.0"
   # Default nompi to "mpi" unless specified otherwise
   nompi: ${{ nompi | default("mpi") }}
   with_mpi: ${{ nompi == "mpi" }}
@@ -17,7 +17,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/ufs2arco-${{ version }}.tar.gz
-  sha256: df93993e2719a782ec5dfeed61c415b6db780f7ea21505d07532d3eadbc67145
+  sha256: 59e34b1b39bbce698d66ede656fc6c3be6542973da6963154f8bba6871c2afec
 
 build:
   number: 0

@@ -6,8 +6,10 @@ context:
   # Default nompi to "mpi" unless specified otherwise
   nompi: ${{ nompi | default("mpi") }}
   with_mpi: ${{ nompi == "mpi" }}
-  # Calculate build number offset based on MPI status
-  build_offset: ${{ 100 if with_mpi else 0 }}
+  # Increment build_base for new builds of the same version
+  build_base: 0
+  # MPI builds get an offset of 100
+  build_number: ${{ build_base + 100 if with_mpi else build_base }}
   # Define the prefix string for the build string
   mpi_prefix: ${{ "mpi" if with_mpi else "nompi" }}
 
@@ -20,9 +22,9 @@ source:
   sha256: f082edafaf873534c3d17d4a90897b130baee5d9ec2b1137c6ba8c5dd6545878
 
 build:
-  number: 0
+  number: ${{ build_number }}
   # Construct the build string to match your V0 logic
-  string: ${{ mpi_prefix }}_pyh${{ hash }}_${{ number }}
+  string: ${{ mpi_prefix }}_pyh${{ hash }}_${{ build_number }}
   noarch: python
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   python:

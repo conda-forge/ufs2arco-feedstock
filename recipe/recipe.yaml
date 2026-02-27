@@ -7,7 +7,7 @@ context:
   nompi: ${{ nompi | default("mpi") }}
   with_mpi: ${{ nompi == "mpi" }}
   # Increment build_base for new builds of the same version
-  build_base: 0
+  build_base: 1
   # MPI builds get an offset of 100
   build_number: ${{ build_base + 100 if with_mpi else build_base }}
   # Define the prefix string for the build string
@@ -83,3 +83,5 @@ about:
 extra:
   recipe-maintainers:
     - timothyas
+    - jrknezha
+    - mariahpope
